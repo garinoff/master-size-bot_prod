@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  bot:
+    build: .
+    depends_on:
+      - db
+      - redis
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+      - DATABASE_URL=postgresql+asyncpg://mastersize:${DB_PASSWORD}@db:5432/mastersize
+      - TON_API_KEY=${TON_API_KEY}
+      - MSZ_CONTRACT_ADDRESS=${MSZ_CONTRACT_ADDRESS}
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=mastersize
+      - POSTGRES_USER=mastersize
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+volumes:
+  postgres_data:
+  redis_data:
