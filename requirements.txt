@@ -1,0 +1,19 @@
+# Фреймворк для бота
+aiogram==3.5.0
+
+# Работа с БД
+sqlalchemy[asyncio]==2.0.30
+asyncpg==0.29.0
+alembic==1.13.1
+
+# Конфигурация
+pydantic-settings==2.2.1
+python-dotenv==1.0.0
+
+# Обработка изображений (базовая)
+opencv-python-headless==4.9.0.80
+Pillow==10.3.0
+
+
+
+
